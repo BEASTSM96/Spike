@@ -19,6 +19,7 @@
 #include "UIUtils.h"
 #include "Spike/Scene/Components.h"
 #include "../Panels/SceneHierarchyPanel.h"
+#include "Spike/Scene/Components.h"
 #include "Spike/Utility/PlatformUtils.h"
 #include "../Panels/ConsolePanel.h"
 #include <imgui/imgui_internal.h>
@@ -217,6 +218,14 @@ namespace Spike
                     Console::Get()->Print("This entity already has Sprite Renderer component!", Console::LogLevel::LVL_WARN);
                 ImGui::CloseCurrentPopup();
             }
+            if( ImGui::MenuItem( "Mesh" ) )
+            {
+                if( !entity.HasComponent<MeshComponent>() )
+                    entity.AddComponent<MeshComponent>();
+                else
+                    Console::Get()->Print( "This entity already has Mesh component!", Console::LogLevel::LVL_WARN );
+                ImGui::CloseCurrentPopup();
+            }
             ImGui::EndPopup();
         }
         ImGui::PopItemWidth();
@@ -323,5 +332,31 @@ namespace Spike
             // Tiling Factor
             DrawFloatControl("Tiling Factor", &component.TilingFactor, 120);
         });
+
+
+        DrawComponent<MeshComponent>( entity, []( auto& component )
+       {
+           ImGui::Columns( 3 );
+           ImGui::SetColumnWidth( 0, 100 );
+           ImGui::SetColumnWidth( 1, 300 );
+           ImGui::SetColumnWidth( 2, 40 );
+           ImGui::Text( "File Path" );
+           ImGui::NextColumn();
+           ImGui::PushItemWidth( -1 );
+           if( component.Mesh )
+             ImGui::InputText( "##meshfilepath", ( char* )component.Mesh->m_FilePath.c_str(), 256, ImGuiInputTextFlags_ReadOnly );
+           else
+               ImGui::InputText( "##meshfilepath", ( char* )"", 256, ImGuiInputTextFlags_ReadOnly );
+           ImGui::PopItemWidth();
+           ImGui::NextColumn();
+           if( ImGui::Button( "...##openmesh", ImVec2( 50, 20 ) ) )
+           {
+               std::string file = FileDialogs::OpenFile( "ObjectFile (*.fbx *.obj)\0*.fbx; *.obj\0" );
+               if( !file.empty() )
+                   component.Mesh = CreateRef<Mesh>( file );
+
+           }
+       } );
+
     }
 }
