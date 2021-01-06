@@ -46,6 +46,8 @@ namespace Spike
         FramebufferSpecification fbSpec;
         fbSpec.Width = 1280;
         fbSpec.Height = 720;
+        fbSpec.Samples = 8;
+        fbSpec.Format = FramebufferFormat::RGBA16F;
         m_Framebuffer = Framebuffer::Create(fbSpec);
         m_IDFramebuffer = Framebuffer::Create(fbSpec);
 

@@ -35,7 +35,7 @@ namespace Spike
         glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
     }
 
-    OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+    OpenGLVertexBuffer::OpenGLVertexBuffer(void* vertices, uint32_t size)
     {
         LE_PROFILE_FUNCTION();
         glCreateBuffers(1, &m_RendererID);
@@ -71,7 +71,7 @@ namespace Spike
     // IndexBuffer //////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////
 
-    OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
+    OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count)
         : m_Count(count)
     {
         LE_PROFILE_FUNCTION();

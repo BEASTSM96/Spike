@@ -26,6 +26,7 @@
 #include <glm/gtx/quaternion.hpp>
 #include <FontAwesome.h>
 #include "ScriptableEntity.h"
+#include "Spike/Renderer/Mesh.h"
 
 namespace Spike
 {
@@ -91,6 +92,26 @@ namespace Spike
             RemoveTexture();
         }
         const char* GetName() { return "Sprite Renderer"; }
+    };
+
+    struct MeshComponent
+    {
+        Ref<Spike::Mesh> Mesh;
+
+        MeshComponent() = default;
+        MeshComponent( const MeshComponent& other ) = default;
+        MeshComponent( Ref<Spike::Mesh>& model )
+            : Mesh( model )
+        {
+        }
+
+        void Reset()
+        {
+        }
+
+        operator Ref<Spike::Mesh>() { return Mesh; }
+
+        const char* GetName() { return "Mesh"; }
     };
 
     struct CameraComponent

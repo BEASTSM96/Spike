@@ -26,7 +26,7 @@ namespace Spike
     {
     public:
         OpenGLVertexBuffer(uint32_t size);
-        OpenGLVertexBuffer(float* vertices, uint32_t size);
+        OpenGLVertexBuffer(void* vertices, uint32_t size);
         virtual ~OpenGLVertexBuffer();
     
         virtual void Bind() const override;
@@ -44,7 +44,7 @@ namespace Spike
     class OpenGLIndexBuffer : public IndexBuffer
     {
     public:
-        OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+        OpenGLIndexBuffer( void* indices, uint32_t count);
         virtual ~OpenGLIndexBuffer();
     
         virtual void Bind() const;

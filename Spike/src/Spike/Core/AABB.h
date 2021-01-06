@@ -1,7 +1,7 @@
 /*****************************************************************************/
 /*                             Spike SourceCode                              */
 /*                                                                           */
-/* File created by: Fahim Fuad                                               */
+/* File created by: beastboioioi                                             */
 /* Other editors: None                                                       */
 /*                                                                           */
 /*   Licensed under the Apache License, Version 2.0 (the "License");         */
@@ -16,38 +16,26 @@
 /*   See the License for the specific language governing permissions and     */
 /*   limitations under the License.                                          */
 /*****************************************************************************/
+
 #pragma once
-#include "glm/glm.hpp"
 
-namespace Spike
+#include <glm/glm.hpp>
+
+namespace Spike 
 {
-	enum class FramebufferFormat
-	{
-		None = 0,
-		RGBA8 = 1,
-		RGBA16F = 2
-	};
-
-    struct FramebufferSpecification
+    struct AABB
     {
-        uint32_t Width = 0, Height = 0;
-        uint32_t Samples = 1;
-        FramebufferFormat Format;
+        glm::vec3 Min, Max;
 
-        bool SwapChainTarget = false;
-    };
+        AABB()
+            : Min(0.0f), Max(0.0f)
+        {
+        }
 
-    class Framebuffer
-    {
-    public:
-        virtual ~Framebuffer() = default;
-        virtual void Bind() = 0;
-        virtual void Unbind() = 0;
+        AABB(const glm::vec3& min, const glm::vec3& max)
+            : Min(min), Max(max)
+        {
+        }
 
-        virtual void Resize(const uint32_t width, const uint32_t height) = 0;
-
-        virtual uint32_t GetColorAttachmentRendererID() const = 0;
-        virtual const FramebufferSpecification& GetSpecification() const = 0;
-        static Ref<Framebuffer> Create(const FramebufferSpecification& spec);
     };
 }

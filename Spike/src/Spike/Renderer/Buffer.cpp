@@ -38,19 +38,19 @@ namespace Spike
     }
 
 
-    Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+    Ref<VertexBuffer> VertexBuffer::Create(void* vertices, uint32_t size)
     {
         switch (Renderer::GetAPI())
         {
             case RendererAPI::API::None:    SPK_INTERNAL_ASSERT("RendererAPI::None is currently not supported!"); return nullptr;
-            case RendererAPI::API::OpenGL:  CreateRef<OpenGLVertexBuffer>(vertices, size);
+            case RendererAPI::API::OpenGL:  return CreateRef<OpenGLVertexBuffer>(vertices, size);
         }
     
         SPK_INTERNAL_ASSERT("Unknown RendererAPI!");
         return nullptr;
     }
 
-    Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+    Ref<IndexBuffer> IndexBuffer::Create(void* indices, uint32_t size)
     {
         switch (Renderer::GetAPI())
         {
